@@ -1,0 +1,116 @@
+<?php
+use App\Http\Controllers\Admin\Menu;
+
+return[
+    'menu_detail' => [
+        [
+            'type' => 'item',
+            'title' => '主控台',
+            'func_name' => 'dashboard',
+            'icon' => 'fas fa-tachometer-alt',
+            'permission' => 'admin area',
+            'controller' => Menu\DashboardController::class,
+        ],
+        [
+            'type' => 'header',
+            'title' => '資料管理',
+            'func_name' => '',
+            'icon' => '',
+            'permission' => '',
+            'controller' => '',
+        ],
+
+        [
+            'type' => 'item',
+            'title' => '顧客資料管理',
+            'func_name' => 'user',
+            'icon' => 'fas fa-user',
+            'permission' => 'admin user',
+            'controller' => Menu\UsersController::class,
+        ],
+        [
+            'type' => 'item',
+            'title' => '顧客資料匯入',
+            'func_name' => 'import-export',
+            'icon' => 'fas fa-file-excel',
+            'permission' => 'admin import export',
+            'controller' => Menu\ImportExportController::class,
+        ],
+        [
+            'type' => 'header',
+            'title' => '後台管理',
+            'func_name' => '',
+            'icon' => '',
+            'permission' => '',
+            'controller' => '',
+        ],
+        [
+            'type' => 'item',
+            'title' => '權限管理',
+            'func_name' => 'permission',
+            'icon' => 'fas fa-lock',
+            'permission' => 'admin permission',
+            'controller' => Menu\PermissionsController::class,
+        ],
+        [
+            'type' => 'item',
+            'title' => '網站資訊&設定',
+            'func_name' => 'web-setting',
+            'icon' => 'fas fa-cogs',
+            'permission' => 'admin web setting',
+            'controller' => Menu\WebSettingController::class,
+            'children'=>[
+                [
+                    'type' => 'item',
+                    'title' => '一般設定',
+                    'func_name' => 'option',
+                    'icon' => 'fas fa-key',
+                    'permission' => 'admin option',
+                    'controller' => Menu\OptionsController::class,
+                ],
+                [
+                    'type' => 'item',
+                    'title' => '路由列表',
+                    'func_name' => 'route-list',
+                    'icon' => 'fas fa-sitemap',
+                    'permission' => 'admin route list',
+                    'controller' => Menu\RouteListController::class,
+                ],
+            ],
+        ],
+        [
+            'type' => 'item',
+            'title' => '網站操作歷史紀錄',
+            'func_name' => 'website-log-history',
+            'icon' => 'fas fa-history ',
+            'permission' => 'admin web log',
+            'controller' => Menu\WebLogController::class,
+            'children'=>[
+                [
+                    'type' => 'item',
+                    'title' => '登入紀錄',
+                    'func_name' => 'login-log',
+                    'icon' => 'fas fa-sign-in-alt',
+                    'permission' => 'admin login log',
+                    'controller' => Menu\LoginLogController::class,
+                ],
+                [
+                    'type' => 'item',
+                    'title' => '操作紀錄',
+                    'func_name' => 'action-log',
+                    'icon' => 'fas fa-mouse-pointer',
+                    'permission' => 'admin action log',
+                    'controller' => Menu\ActionLogController::class,
+                ],
+                [
+                    'type' => 'item',
+                    'title' => '搜尋紀錄',
+                    'func_name' => 'search-log',
+                    'icon' => 'fas fa-search',
+                    'permission' => 'admin search log',
+                    'controller' => Menu\SearchLogController::class,
+                ],
+            ],
+        ],
+    ],
+];
