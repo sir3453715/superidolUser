@@ -107,9 +107,7 @@
                                 </div>
                             </div>
                             <!-- /.card-body -->
-                        </div>
-                        <div class="card ">
-                            <div class="card-header">
+                            <div class="card-header bg-white border-top border-bottom-0">
                                 <h3 class="card-title">項目</h3>
                                 <a href="javascript:void(0);" class="add-item btn btn-sm btn-outline-primary ml-5">
                                     增加項目 <i class="fa fa-plus-square-o"></i>
