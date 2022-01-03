@@ -64,14 +64,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer clearfix row">
-                        <div class="col">
-                            {{ $login_log->appends(request()->except('page'))->links() }}
-                        </div>
-                        <div class="ml-auto mr-4">
-                            <small>
-                                第 {{$login_log->firstItem()}} 到 {{$login_log->lastItem()}} 筆 共 {{$login_log->total()}} 筆
-                            </small>
-                        </div>
+                        {{ $login_log->appends(request()->except('page'))->links() }}
                     </div>
                 </div>
                 <!-- /.card -->

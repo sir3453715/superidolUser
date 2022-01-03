@@ -13,7 +13,7 @@ class SearchLogController extends Controller
     //
     public function index(Request $request)
     {
-        $search_log = SearchLog::orderBy('created_at','desc')->paginate(25);
+        $search_log = SearchLog::orderBy('created_at','desc')->simplePaginate(25);
         return view('admin.setting.SearchLog',[
             'search_log'=>$search_log,
         ]);

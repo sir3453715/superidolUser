@@ -89,7 +89,18 @@ class CarDataController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $carData = CarData::find($id);
+        $user = $carData->user;
+        $carTypes = CarType::where('parent_id',0)->get();
+        $carModels = CarModel::all();
+
+        return view('admin.carData.editCarData',[
+            'user'=>$user,
+            'carData'=>$carData,
+            'carTypes'=>$carTypes,
+            'carModels'=>$carModels,
+        ]);
     }
 
     /**
@@ -101,7 +112,45 @@ class CarDataController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $carData = CarData::find($id);
+        $data=[
+            "date" => $request->get('date'),
+            "time" => $request->get('date').' '.$request->get('time').':00',
+            "car_type" => $request->get('car_type'),
+            "car_model" => $request->get('car_model'),
+            "VIN" => $request->get('VIN'),
+            "car_code" => $request->get('car_code'),
+            "milage" => $request->get('milage'),
+            "price" => $request->get('price'),
+            "giveaway" => $request->get('giveaway'),
+            "how_to_know" => $request->get('how_to_know'),
+            "car_situation" => $request->get('car_situation'),
+            "notes" => $request->get('notes'),
+        ];
+        $carData->fill($data);
+        ActionLog::create_log($carData);
+        $carData->save();
+        $oldCarItems = CarItems::where('car_data_id',$id);
+        if($oldCarItems){
+            foreach ($oldCarItems->get() as $oldCarItem){
+                ActionLog::create_log($oldCarItem,'delete');
+            }
+            $oldCarItems->delete();
+        }
+
+        foreach ($request->get('location') as $key => $value){
+            $item=[
+                "car_data_id" => $id,
+                "location" => $request->get('location')[$key],
+                "paper_type" => $request->get('paper_type')[$key],
+            ];
+            $carItem = CarItems::create($item);
+            ActionLog::create_log($carItem,'create');
+        }
+
+        return redirect(route('admin.user.edit',['user'=>$carData->user_id]))->with('message', '隔熱紙紀錄已修改!');
+
+
     }
 
     /**
@@ -112,7 +161,19 @@ class CarDataController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $carData = CarData::find($id);
+        $oldCarItems = CarItems::where('car_data_id',$id);
+        if($oldCarItems){
+            foreach ($oldCarItems->get() as $oldCarItem){
+                ActionLog::create_log($oldCarItem,'delete');
+            }
+            $oldCarItems->delete();
+        }
+        if ($carData){
+            ActionLog::create_log($carData,'delete');
+            $carData->delete();
+        }
+        return redirect(route('admin.user.edit',['user'=>$carData->user_id]))->with('message', '隔熱紙紀錄已刪除!');
     }
     public function setNewCarData(Request $request){
         $model = $request->get('model');
