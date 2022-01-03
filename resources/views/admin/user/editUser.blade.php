@@ -180,10 +180,10 @@
                                                                 <td>{{ $carData->price }}</td>
                                                                 <td>{{ $carData->VIN }}</td>
                                                                 <td>{{ $carData->milage }}</td>
-                                                                <td>{{ $carData->giveaway }}</td>
-                                                                <td>{{ $carData->how_to_know }}</td>
-                                                                <td>{{ $carData->car_situation }}</td>
-                                                                <td>{{ $carData->notes }}</td>
+                                                                <td>{!! nl2br($carData->giveaway) !!}</td>
+                                                                <td>{!! nl2br($carData->how_to_know) !!}</td>
+                                                                <td>{!! nl2br($carData->car_situation) !!}</td>
+                                                                <td>{!! nl2br($carData->notes) !!}</td>
                                                                 <td>
                                                                     <ul>
                                                                         @foreach($carData->CarItems as $items)
@@ -192,9 +192,9 @@
                                                                     </ul>
                                                                 </td>
                                                                 <td class="action form-inline">
-                                                                    <a href="{{route('admin.user.edit',['user'=>$user->id])}}" class="btn btn-sm btn-secondary mr-1">修改</a>
+                                                                    <a href="{{route('admin.carData.edit',['carDatum'=>$carData->id])}}" class="btn btn-sm btn-secondary mr-1">修改</a>
                                                                     @if(\Illuminate\Support\Facades\Auth::user()->hasRole('administrator')||\Illuminate\Support\Facades\Auth::user()->hasRole('manager'))
-                                                                        <form action="{{ route('admin.user.destroy', ['user' => $user->id]) }}" method="post" class="form-btn">
+                                                                        <form action="{{ route('admin.carData.destroy', ['carDatum' => $carData->id]) }}" method="post" class="form-btn">
                                                                             @method('delete')
                                                                             @csrf
                                                                             <button class="btn btn-sm btn-danger delete-confirm">刪除</button>
